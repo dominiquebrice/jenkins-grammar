@@ -82,7 +82,7 @@ options { generateAmbigWarnings=false; }
   | a:ATOM
     { l=LabelAtom.get(a.getText()); }
   | s:STRINGLITERAL
-    { l=LabelAtom.get(jenkins.grammar.fromhudson.Util.unquote(s.getText())); }
+    { l=LabelAtom.get(Util.unquote(s.getText())); }
   ;
 
 class LabelExpressionLexer extends Lexer;
@@ -103,11 +103,6 @@ IDENTIFIER_PART
 ATOM
 /* the real check of valid identifier happens in LabelAtom.get() */
     :   (IDENTIFIER_PART)+
-    ;
-
-ATOM_OR_IMPLIES
-    :   ( (IDENTIFIER_PART)+ "->" ) => ATOM IMPLIES
-    |   ATOM
     ;
 
 WS
